@@ -473,7 +473,7 @@ func (v *vault) addManagedAuthMethods(managedAuths []auth) error {
 						return errors.Wrap(err, "error configuring aws identity integration")
 					}
 				default:
-					continue
+					return errors.Wrap(err, "Unmanaged configuration option")
 				}
 			}
 		}
