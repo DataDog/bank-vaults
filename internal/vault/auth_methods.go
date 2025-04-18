@@ -450,6 +450,7 @@ func (v *vault) addManagedAuthMethods(managedAuths []auth) error {
 						return errors.Wrap(err, "error configuring plugin identity integration")
 					}
 				default:
+					slog.Error(fmt.Sprintf("unknown auth method config option: %s", configOption))
 					continue
 				}
 			}
