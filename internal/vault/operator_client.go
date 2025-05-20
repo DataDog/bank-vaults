@@ -394,7 +394,7 @@ func (v *vault) RaftInitialized() (bool, error) {
 				return false, errors.Wrapf(err, "unable to get key '%s'", keyUnsealForID(i))
 			}
 			if len(unsealKey) == 0 {
-				return false, nil
+				return false, errors.Wrapf(err, "empty file for key '%s'", keyUnsealForID(i))
 			}
 
 		}
