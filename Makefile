@@ -80,7 +80,7 @@ lint: ## Run linters
 
 .PHONY: lint-go
 lint-go:
-	$(GOLANGCI_LINT_BIN) run $(if ${CI},--out-format colored-line-number,)
+	$(GOLANGCI_LINT_BIN) run
 
 .PHONY: lint-docker
 lint-docker:
@@ -113,7 +113,7 @@ gen-docs: ## Generate CLI documentation
 ##@ Dependencies
 
 # Dependency versions
-GOLANGCI_LINT_VERSION = 1.62.2
+GOLANGCI_LINT_VERSION = 2.0.2
 LICENSEI_VERSION = 0.9.0
 
 # Dependency binaries
