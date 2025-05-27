@@ -99,9 +99,14 @@ func (v *vault) addAdditionalAuthConfig(authMethod auth) error {
 		}
 
 	case "plugin":
-		err := v.configureGenericAuthRoles(authMethod.Type, authMethod.Path, "role", authMethod.Roles)
+		err := v.configureGenericAuthConfig(authMethod.Type, authMethod.Path, authMethod.Config)
 		if err != nil {
-			return errors.Wrap(err, "error configuring plugin auth roles for vault")
+			return errors.Wrap(err, "error configuring plugin auth for vault")
+		}
+
+		err = v.configureGenericAuthRoles(authMethod.Type, authMethod.Path, "role", authMethod.Roles)
+		if err != nil {
+			return errors.Wrap(err, "error configuring azure auth roles for vault")
 		}
 
 	case "aws":
