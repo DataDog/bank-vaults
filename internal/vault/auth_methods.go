@@ -99,6 +99,21 @@ func (v *vault) addAdditionalAuthConfig(authMethod auth) error {
 		}
 
 	case "plugin":
+		// Only configure generic auth config for Azure auth plugins
+		// Azure auth plugins are identified by having a "resource" field in their config
+		if authMethod.Config != nil {
+			if resource, ok := authMethod.Config["resource"]; ok {
+				// If resource field is set to the Azure management API, this is an Azure auth plugin
+				// Confuguring auth config for it is needed
+				if resource == "https://management.azure.com/" {
+					err := v.configureGenericAuthConfig(authMethod.Type, authMethod.Path, authMethod.Config)
+					if err != nil {
+						return errors.Wrap(err, "error configuring plugin auth for vault")
+					}
+				}
+			}
+		}
+
 		err := v.configureGenericAuthRoles(authMethod.Type, authMethod.Path, "role", authMethod.Roles)
 		if err != nil {
 			return errors.Wrap(err, "error configuring plugin auth roles for vault")
