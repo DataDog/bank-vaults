@@ -1,0 +1,21 @@
+issuer: https://gitlab.ddbuild.io
+
+subject_pattern: "project_path:(DataDog|ddoghq)/compute-delivery:ref_type:(branch|tag):ref:(master|v.+)"
+
+claim_pattern:
+  pipeline_source: "(push|schedule|web|api)"
+
+permissions:
+  actions: write
+  checks: write
+  contents: write
+  issues: write
+  pull_requests: write
+  statuses: write
+  workflows: write
+
+  administration: read
+  members: read
+  metadata: read
+  security_events: read
+  vulnerability_alerts: read
